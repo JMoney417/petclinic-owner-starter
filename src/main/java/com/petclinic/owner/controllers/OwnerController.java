@@ -3,6 +3,9 @@ package com.petclinic.owner.controllers;
 
 import com.petclinic.owner.models.Owner;
 import com.petclinic.owner.services.OwnerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,12 +16,19 @@ import java.util.List;
 @RestController
 @RequestMapping("owner")
 public class OwnerController implements BasicController<Owner> {
+    private Logger logger = LoggerFactory.getLogger((this.getClass()));
+    @Value("${message:Hello}")
+    private String message;
 
     private OwnerService ownerService;
 
     public OwnerController(OwnerService ownerService) {
-
         this.ownerService = ownerService;
+    }
+
+    @GetMapping("/message")
+    public String getMessage(){
+        return this.message;
     }
 
     @Override
@@ -40,6 +50,7 @@ public class OwnerController implements BasicController<Owner> {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Owner [" + id + "] Not Found", exc);
         }
+        logger.info("Owner "+id+ " requested");
         return owner;
     }
 

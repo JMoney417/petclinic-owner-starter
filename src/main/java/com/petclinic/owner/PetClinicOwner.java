@@ -4,10 +4,12 @@ import com.petclinic.owner.controllers.OwnerController;
 import com.petclinic.owner.models.Owner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import java.util.List;
 
+@EnableDiscoveryClient
 @SpringBootApplication
 public class PetClinicOwner {
 
